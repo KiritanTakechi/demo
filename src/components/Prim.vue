@@ -9,10 +9,15 @@
     </el-descriptions>
     <highlightjs language="cpp" :code=code />
     <el-input v-model="input" :autosize="{ minRows: 8 }" type="textarea" placeholder="请输入测试样例" />
+    <el-divider />
     <el-button-group>
         <el-button type="primary" @click="submit">提交</el-button>
         <el-button type="danger" @click="clear">清空</el-button>
     </el-button-group>
+    <el-divider />
+    <el-card>
+        {{ message }}
+    </el-card>
 </template>
     
 <script setup lang='ts'>
@@ -33,11 +38,12 @@ const input = ref('');
 const message = ref('');
 
 const submit = async () => {
-    message.value = await invoke('run', { x: 'prim' });
+    message.value = await invoke('run', { x: 'prim', input: input });
 }
 
 const clear = async () => {
     input.value = await '';
+    message.value = await '';
 }
 </script>
     
