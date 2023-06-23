@@ -1,6 +1,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::{process::{Command, Stdio}, io::Write};
+use std::{
+    io::Write,
+    process::{Command, Stdio},
+};
 
 fn main() {
     tauri::Builder::default()
@@ -29,23 +32,28 @@ fn run(x: &str, input: &str) -> tauri::Result<String> {
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
-        .spawn()
-        .expect("Failed to execute C++ executable");
+        .spawn()?;
 
     // 将输入内容写入子进程的标准输入
     if let Some(stdin) = child.stdin.as_mut() {
-        stdin
-            .write_all(input.as_bytes())
-            .expect("Failed to write to stdin");
+        stdin.write_all(input.as_bytes())?;
     }
 
     // 等待子进程执行完毕并获取输出
-    let output = child
-        .wait_with_output()
-        .expect("Failed to wait for child process");
+    let output = child.wait_with_output()?;
+
+    // 检查错误输出，如果存在则返回错误
+    if !output.stderr.is_empty() {
+        return Ok(String::from_utf8_lossy(&output.stderr).to_string());
+    }
 
     // 将输出转换为字符串
     let output_str = String::from_utf8_lossy(&output.stdout);
+
+    // 检查输出是否为空，如果为空则返回错误
+    if output_str.is_empty() {
+        return Ok("Command did not return any output".to_string());
+    }
 
     Ok(output_str.to_string())
 }

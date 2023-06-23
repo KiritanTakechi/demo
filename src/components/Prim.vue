@@ -8,7 +8,7 @@
         </el-descriptions-item>
     </el-descriptions>
     <highlightjs language="cpp" :code=code />
-    <el-input v-model="input" :autosize="{ minRows: 8 }" type="textarea" placeholder="请输入测试样例" />
+    <el-input v-model="input" :autosize="{ minRows: 8 }" type="textarea" placeholder="请输入测试样例" disabled />
     <el-divider />
     <el-button-group>
         <el-button type="primary" @click="submit">提交</el-button>
@@ -16,7 +16,7 @@
     </el-button-group>
     <el-divider />
     <el-card>
-        {{ message }}
+        <pre>{{ message }}</pre>
     </el-card>
 </template>
     

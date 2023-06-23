@@ -16,7 +16,7 @@
     </el-button-group>
     <el-divider />
     <el-card>
-        {{ message }}
+        <pre>{{ message }}</pre>
     </el-card>
 </template>
     
@@ -38,11 +38,7 @@ const input = ref('');
 const message = ref('');
 
 const submit = async () => {
-    try {
-        message.value = await invoke('run', { x: 'avl', input: input.value });
-    } catch (error: any) {
-        message.value = error.toString();
-    }
+    message.value = await invoke<string>('run', { x: 'avl', input: input.value })
 }
 
 const clear = async () => {
