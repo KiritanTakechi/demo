@@ -22,7 +22,7 @@ fn source(x: &str) -> tauri::Result<String> {
 #[tauri::command]
 fn run(x: &str, input: &str) -> tauri::Result<String> {
     let cpp_executable = if cfg!(target_os = "windows") {
-        format!("./bin/{}.exe", x)
+        format!(".\\bin\\{}.exe", x)
     } else {
         format!("./bin/{}", x)
     };
