@@ -1,0 +1,28 @@
+<template>
+    <el-descriptions title="平衡二叉树" :column="2">
+        <el-descriptions-item label="学号">
+            {{ id }}
+        </el-descriptions-item>
+        <el-descriptions-item label="姓名">
+            {{ name }}
+        </el-descriptions-item>
+    </el-descriptions>
+    <highlightjs language="cpp" :code=code />
+</template>
+    
+<script setup lang='ts'>
+import { onMounted, ref } from 'vue';
+import groupList from '../data'
+import { invoke } from '@tauri-apps/api';
+
+const id = groupList[1].id;
+const name = groupList[1].name;
+
+const code = ref('');
+
+onMounted(async () => {
+    code.value = await invoke('source', { x: 'avl' });
+});
+</script>
+    
+<style></style>
