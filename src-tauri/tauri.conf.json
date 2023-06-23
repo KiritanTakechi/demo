@@ -28,6 +28,10 @@
         "icons/256x256.png",
         "icons/icon.icns",
         "icons/icon.ico"
+      ],
+      "resources": [
+        "./bin",
+        "./source"
       ]
     },
     "security": {
