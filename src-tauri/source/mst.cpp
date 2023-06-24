@@ -22,8 +22,7 @@ public:
         {
             parent[i] = find(parent[i]);
         }
-        else
-            return parent[i];
+        return parent[i];
     }
 
     void union_sets(int x, int y) noexcept
