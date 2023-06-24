@@ -7,7 +7,7 @@
             {{ name }}
         </el-descriptions-item>
     </el-descriptions>
-    <highlightjs language="cpp" :code=code />
+    <highlightjs autodetect :code=code />
     <el-input v-model="input" :autosize="{ minRows: 8 }" type="textarea" placeholder="请输入测试样例" />
     <el-divider />
     <el-button-group>
